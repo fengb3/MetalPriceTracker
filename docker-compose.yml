@@ -1,6 +1,0 @@
-﻿services:
-  dbmigrationservice:
-    image: dbmigrationservice
-    build:
-      context: .
-      dockerfile: DbMigrationService/Dockerfile

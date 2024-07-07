@@ -1,12 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-// var usernameStr = Environment.GetEnvironmentVariable("POSTGRES_USER") ?? "username";
-// var passwordStr = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD") ?? "password";
-
-// var username = builder.AddParameter("usernameStr", secret: true);
-// var password = builder.AddParameter("passwordStr", secret: true);
-
-Environment.SetEnvironmentVariable("CONNECTION_STRING", "db1");
+Environment.SetEnvironmentVariable("CONNECTION_STRING_SECTION", "db1");
 
 var db1 =
         builder

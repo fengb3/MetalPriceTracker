@@ -12,34 +12,29 @@ public class GoldMetaDataFetchJob(
 {
     public Task Execute(IJobExecutionContext context)
     {
-        logger.LogInformation("start Fetch Job");
-
-        var result = client.FetchDataAsync().GetAwaiter().GetResult();
-
-        if (result == null)
+        using ( var loggingScope = logger.BeginScope("GoldMetaDataFetchJob"))
         {
-            throw new NullReferenceException();
+            logger.LogInformation("Start");
+
+            var result = client.FetchDataAsync().GetAwaiter().GetResult();
+
+            if (result == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            foreach (var metaData in result.MetalMatas.Values)
+            {
+                logger.LogInformation($"Safe insert data to {metaData.Code} - {metaData.Time}");
+                SafeInsert(metaData);
+            }
+
+            dbContext.SaveChanges();
+
+            logger.LogInformation("End");
         }
 
-        // await result.MetalMatas
-        //             .Values
-        //             .Select(SafeInsertAsync)
-        //             .WhenAll();
-        
-        foreach (var metaData in result.MetalMatas.Values)
-        {
-            logger.LogInformation($"Safe insert data to {metaData.Code} - {metaData.Time}");
-            SafeInsert(metaData);
-            logger.LogInformation($"End insert data to {metaData.Code} - {metaData.Time}");
 
-        }
-
-        dbContext.SaveChanges();
-        
-        logger.LogInformation("{list}", dbContext.Set<MetalMetaData>("JO_9753").ToList().ToJsonString());
-        
-        logger.LogInformation("start Fetch Job");
-        
         return Task.CompletedTask;
     }
 

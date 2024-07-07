@@ -10,21 +10,21 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["DbMigrationService/DbMigrationService.csproj", "DbMigrationService/"]
+COPY ["Worker/Worker.csproj", "Worker/"]
 COPY ["Lib/Lib.csproj", "Lib/"]
 COPY ["ServiceDefaults/ServiceDefaults.csproj", "ServiceDefaults/"]
-RUN dotnet restore "./DbMigrationService/DbMigrationService.csproj"
+RUN dotnet restore "./Worker/Worker.csproj"
 COPY . .
-WORKDIR "/src/DbMigrationService"
-RUN dotnet build "./DbMigrationService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Worker"
+RUN dotnet build "./Worker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # 此阶段用于发布要复制到最终阶段的服务项目
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DbMigrationService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Worker.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # 此阶段在生产中使用，或在常规模式下从 VS 运行时使用(在不使用调试配置时为默认值)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DbMigrationService.dll"]
+ENTRYPOINT ["dotnet", "Worker.dll"]

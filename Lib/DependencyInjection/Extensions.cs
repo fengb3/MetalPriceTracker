@@ -10,14 +10,17 @@ public static class Extensions
 {
     public static void AddMetalDb(this IHostApplicationBuilder builder)
     {
-        var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        var connStringSection = Environment.GetEnvironmentVariable("ConnectionStringSection");
 
-        Console.WriteLine(connectionString ?? "Connection string is not defined");
+        Console.WriteLine(connStringSection ?? "Connection string is not defined");
         
         builder.Services.AddDbContext<GoldDbContext>(options =>
         {
             // options.UseInMemoryDatabase(databaseName: "testDb");
-            options.UseNpgsql(builder.Configuration.GetConnectionString(connectionString), sqlOptions =>
+
+            Console.WriteLine(builder.Configuration.GetConnectionString(connStringSection));
+
+            options.UseNpgsql(builder.Configuration.GetConnectionString(connStringSection), sqlOptions =>
             {
                 sqlOptions.MigrationsAssembly("DbMigrationService");
                 // Workaround for https://github.com/dotnet/aspire/issues/1023
