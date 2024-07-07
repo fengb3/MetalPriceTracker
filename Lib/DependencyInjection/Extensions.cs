@@ -10,7 +10,7 @@ public static class Extensions
 {
     public static void AddMetalDb(this IHostApplicationBuilder builder)
     {
-        var connStringSection = Environment.GetEnvironmentVariable("ConnectionStringSection");
+        var connStringSection = Environment.GetEnvironmentVariable("CONNECTION_STRING_SECTION");
 
         Console.WriteLine(connStringSection ?? "Connection string is not defined");
         

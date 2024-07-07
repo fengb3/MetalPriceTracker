@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceDefaults", "ServiceD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiService", "ApiService\ApiService.csproj", "{CBEB8F75-803A-41F4-B87E-DE5AEFC6B0C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{A3BC9029-5A85-47AC-B6D3-3FD2E9EB690B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbMigrationService", "DbMigrationService\DbMigrationService.csproj", "{028502B6-6E69-41A3-B007-A69880D69C4F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker", "Worker\Worker.csproj", "{4785F281-00C5-452F-A276-559A98146221}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "DockerCompose\docker-compose.dcproj", "{4E7403F3-565C-43D7-9447-42A4BD77325D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{A38C55E9-1400-4577-9F2A-E1894D12EB8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web2", "Web2\Web2.csproj", "{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +49,6 @@ Global
 		{CBEB8F75-803A-41F4-B87E-DE5AEFC6B0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBEB8F75-803A-41F4-B87E-DE5AEFC6B0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEB8F75-803A-41F4-B87E-DE5AEFC6B0C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3BC9029-5A85-47AC-B6D3-3FD2E9EB690B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3BC9029-5A85-47AC-B6D3-3FD2E9EB690B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3BC9029-5A85-47AC-B6D3-3FD2E9EB690B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3BC9029-5A85-47AC-B6D3-3FD2E9EB690B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{028502B6-6E69-41A3-B007-A69880D69C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{028502B6-6E69-41A3-B007-A69880D69C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{028502B6-6E69-41A3-B007-A69880D69C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +61,14 @@ Global
 		{4E7403F3-565C-43D7-9447-42A4BD77325D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E7403F3-565C-43D7-9447-42A4BD77325D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E7403F3-565C-43D7-9447-42A4BD77325D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38C55E9-1400-4577-9F2A-E1894D12EB8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38C55E9-1400-4577-9F2A-E1894D12EB8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38C55E9-1400-4577-9F2A-E1894D12EB8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38C55E9-1400-4577-9F2A-E1894D12EB8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

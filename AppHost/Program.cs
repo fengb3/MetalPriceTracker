@@ -7,7 +7,7 @@ var db1 =
            .AddPostgres("postgres-server",
                         password: ParameterExtensions.CreateStablePassword(builder, "postgrespassword"))
            .WithDataVolume()
-           .AddDatabase(Environment.GetEnvironmentVariable("CONNECTION_STRING")!)
+           .AddDatabase(Environment.GetEnvironmentVariable("CONNECTION_STRING_SECTION")!)
     ;
 
 var api =
@@ -34,5 +34,7 @@ builder
    .WithExternalHttpEndpoints()
    .WithReference(api)
     ;
+
+builder.AddProject<Projects.Web1>("web1");
 
 builder.Build().Run();
