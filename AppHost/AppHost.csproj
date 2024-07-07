@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsAspireHost>true</IsAspireHost>
+        <UserSecretsId>716E1F4D-107E-4E8F-AD34-DC60F86FBA97</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ApiService\ApiService.csproj" />
+        <ProjectReference Include="..\DbMigrationService\DbMigrationService.csproj" />
+        <ProjectReference Include="..\Web\Web.csproj" />
+        <ProjectReference Include="..\Worker\Worker.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.2"/>
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.2" />
+        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+    </ItemGroup>
+
+</Project>
