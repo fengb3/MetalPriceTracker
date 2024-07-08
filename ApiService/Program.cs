@@ -13,6 +13,8 @@ builder.Services.AddProblemDetails();
 // Add services to the container.
 builder.Services.AddAuthorization();
 
+builder.Services.AddControllers();
+
 builder.AddMetalDb();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,10 +39,12 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapGet("/getThings/{code}", async (GoldDbContext context, string code) =>
-{
-    var things = await context.Set<MetalMetaData>(code).ToListAsync();
-    return things;
-});
+app.MapControllers();
+
+// app.MapGet("/getThings/{code}", async (MetalDbContext context, string code) =>
+// {
+//     var things = await context.Set<MetalMetaData>(code).ToListAsync();
+//     return things;
+// });
 
 app.Run();

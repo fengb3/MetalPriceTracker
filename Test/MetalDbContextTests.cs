@@ -6,34 +6,34 @@ using Xunit.Abstractions;
 
 namespace Test;
 
-public class GoldDbContextTests
+public class MetalDbContextTests
 {
     private readonly ITestOutputHelper _testOutputHelper;
 
-    private GoldDbContext _dbContext;
+    private MetalDbContext _dbContext;
 
 
-    public GoldDbContextTests(ITestOutputHelper testOutputHelper)
+    public MetalDbContextTests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
 
-        var options = new DbContextOptionsBuilder<GoldDbContext>()
+        var options = new DbContextOptionsBuilder<MetalDbContext>()
                      .UseInMemoryDatabase(databaseName: "TestDb")
                      .Options;
 
-        _dbContext = new GoldDbContext(options);
+        _dbContext = new MetalDbContext(options);
     }
 
     [Fact]
     public void SaveMetas_AddsJO_9753Entity()
     {
         // Arrange
-        var options = new DbContextOptionsBuilder<GoldDbContext>()
+        var options = new DbContextOptionsBuilder<MetalDbContext>()
                      .UseInMemoryDatabase(databaseName: "TestDb") // Use a unique name for each test method
                      .Options;
 
         // Act
-        using (var context = new GoldDbContext(options))
+        using (var context = new MetalDbContext(options))
         {
             var mata = new JO_9753
             {
@@ -44,7 +44,7 @@ public class GoldDbContextTests
         }
 
         // Assert
-        using (var context = new GoldDbContext(options))
+        using (var context = new MetalDbContext(options))
         {
             Assert.Equal(1, context.Set<MetalMetaData>("JO_9753").Count());
         }
@@ -53,7 +53,7 @@ public class GoldDbContextTests
     [Fact]
     public async Task SaveMetas_Adds_All_Entity()
     {
-        GoldMetaDataWorkerClient client = new(new HttpClient()
+        MetalMetaDataWorkerClient client = new(new HttpClient()
         {
             BaseAddress = new Uri("https://api.jijinhao.com//"),
             DefaultRequestHeaders =

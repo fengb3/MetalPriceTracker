@@ -6,8 +6,8 @@ using Quartz;
 namespace Worker;
 
 public class GoldMetaDataFetchJob(
-    GoldMetaDataWorkerClient      client,
-    GoldDbContext                 dbContext,
+    MetalMetaDataWorkerClient      client,
+    MetalDbContext                 dbContext,
     ILogger<GoldMetaDataFetchJob> logger) : IJob
 {
     public Task Execute(IJobExecutionContext context)

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DbMigrationService.Migrations
 {
-    [DbContext(typeof(GoldDbContext))]
+    [DbContext(typeof(MetalDbContext))]
     [Migration("20240706174231_Initial")]
     partial class Initial
     {

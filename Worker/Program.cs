@@ -8,7 +8,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddProblemDetails();
 
-builder.Services.AddHttpClient<GoldMetaDataWorkerClient>(client =>
+builder.Services.AddHttpClient<MetalMetaDataWorkerClient>(client =>
 {
     client.BaseAddress = new Uri("https://api.jijinhao.com//");
     client.DefaultRequestHeaders.Add("User-Agent",

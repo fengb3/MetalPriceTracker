@@ -35,6 +35,4 @@ builder
    .WithReference(api)
     ;
 
-builder.AddProject<Projects.Web1>("web1");
-
 builder.Build().Run();

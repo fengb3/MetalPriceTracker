@@ -7,11 +7,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Worker;
 
-public class GoldMetaDataWorkerClient(HttpClient httpClient)
+public class MetalMetaDataWorkerClient(HttpClient httpClient)
 {
-    public async Task<GoldResponseDto?> FetchDataAsync()
+    /// <summary>
+    /// 获取贵金属数据
+    /// </summary>
+    /// <returns></returns>
+    public async Task<JiJinHaoMetalResponseDto?> FetchDataAsync()
     {
-        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?codes={string.Join(",", Global.Codes)}");
+        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?code={string.Join(",", Global.Codes)}");
 
         response.EnsureSuccessStatusCode();
 
@@ -22,11 +26,17 @@ public class GoldMetaDataWorkerClient(HttpClient httpClient)
 
         content = content.Split('=')[1].Trim();
 
-        var result = JsonSerializer.Deserialize<GoldResponseDto>(content, Options);
+        var result = JsonSerializer.Deserialize<JiJinHaoMetalResponseDto>(content, Options);
 
         return result;
     }
 
+    /// <summary>
+    /// 获取到解压后的流
+    /// </summary>
+    /// <param name="contentStream"></param>
+    /// <param name="headers"></param>
+    /// <returns></returns>
     private static Stream GetDecompressedStream(Stream contentStream, HttpContentHeaders headers)
     {
         foreach (var encoding in headers.ContentEncoding)
@@ -48,6 +58,6 @@ public class GoldMetaDataWorkerClient(HttpClient httpClient)
     private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNameCaseInsensitive = true,
-        Converters                  = { new MatelJsonConverter() },
+        Converters                  = { new JiJinHaoMetalJsonConverter() },
     };
 }

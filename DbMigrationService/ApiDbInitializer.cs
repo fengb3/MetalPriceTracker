@@ -24,7 +24,7 @@ public class ApiDbInitializer(
         try
         {
             using var scope     = serviceProvider.CreateScope();
-            var       dbContext = scope.ServiceProvider.GetRequiredService<GoldDbContext>();
+            var       dbContext = scope.ServiceProvider.GetRequiredService<MetalDbContext>();
 
             await EnsureDatabaseAsync(dbContext, cancellationToken);
             await RunMigrationAsync(dbContext, cancellationToken);

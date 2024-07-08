@@ -3,11 +3,11 @@ using System.Text.Json.Serialization;
 
 namespace Lib;
 
-public class MatelJsonConverter : JsonConverter<GoldResponseDto>
+public class JiJinHaoMetalJsonConverter : JsonConverter<JiJinHaoMetalResponseDto>
 {
-    public override GoldResponseDto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions? options)
+    public override JiJinHaoMetalResponseDto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions? options)
     {
-        var response = new GoldResponseDto
+        var response = new JiJinHaoMetalResponseDto
         {
             MetalMatas = new Dictionary<string, MetalMetaData>()
         };
@@ -49,7 +49,7 @@ public class MatelJsonConverter : JsonConverter<GoldResponseDto>
         throw new JsonException("Invalid JSON format");
     }
 
-    public override void Write(Utf8JsonWriter writer, GoldResponseDto value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, JiJinHaoMetalResponseDto value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 

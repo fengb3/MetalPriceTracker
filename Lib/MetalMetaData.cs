@@ -1,30 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-
-// ReSharper disable InconsistentNaming
 
 namespace Lib;
-
-public record GoldResponseDto
-{
-    public bool      Flag      { get; set; }
-    public string[]? ErrorCode { get; set; }
-
-    [JsonIgnore]
-    public Dictionary<string, MetalMetaData> MetalMatas { get; init; } = [];
-
-    // override indexer
-    public MetalMetaData? this[string key]
-    {
-        get => MetalMatas.GetValueOrDefault(key);
-        init => MetalMatas[key] = value!;
-    }
-}
 
 public record MetalMetaData
 {
     /// <summary>
-    /// 代码
+    /// 产品代码
     /// </summary>
     public string? Code { get; set; }
 
@@ -123,37 +104,3 @@ public record MetalMetaData
     public int Digits { get; set; }
     public int Status { get; set; }
 }
-
-public record JO_9753 : MetalMetaData;
-
-public record JO_92226 : MetalMetaData;
-
-public record JO_9754 : MetalMetaData;
-
-public record JO_71 : MetalMetaData;
-
-public record JO_70 : MetalMetaData;
-
-public record JO_73 : MetalMetaData;
-
-public record JO_72 : MetalMetaData;
-
-public record JO_75 : MetalMetaData;
-
-public record JO_9751 : MetalMetaData;
-
-public record JO_9752 : MetalMetaData;
-
-public record JO_92224 : MetalMetaData;
-
-public record JO_92225 : MetalMetaData;
-
-public record JO_92276 : MetalMetaData;
-
-public record JO_76 : MetalMetaData;
-
-public record JO_74 : MetalMetaData;
-
-public record JO_92277 : MetalMetaData;
-
-public record JO_92278 : MetalMetaData;

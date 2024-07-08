@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Lib;
 
-public class GoldDbContext : DbContext
+public class MetalDbContext : DbContext
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,7 +29,7 @@ public class GoldDbContext : DbContext
         AddAsync(metaData).GetAwaiter().GetResult();
     }
 
-    public GoldDbContext(DbContextOptions<GoldDbContext> options) : base(options)
+    public MetalDbContext(DbContextOptions<MetalDbContext> options) : base(options)
     {
     }
 }

@@ -1,4 +1,5 @@
 using Lib;
+using Lib.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +13,11 @@ public static class Extensions
     {
         var connStringSection = Environment.GetEnvironmentVariable("CONNECTION_STRING_SECTION");
 
-        Console.WriteLine(connStringSection ?? "Connection string is not defined");
+        Console.WriteLine(connStringSection ?? "Connection string Section is not defined");
         
-        builder.Services.AddDbContext<GoldDbContext>(options =>
+        Ensure.NotNullOrEmpty(connStringSection, nameof(connStringSection));
+        
+        builder.Services.AddDbContext<MetalDbContext>(options =>
         {
             // options.UseInMemoryDatabase(databaseName: "testDb");
 
@@ -24,11 +27,11 @@ public static class Extensions
             {
                 sqlOptions.MigrationsAssembly("DbMigrationService");
                 // Workaround for https://github.com/dotnet/aspire/issues/1023
-                sqlOptions.ExecutionStrategy(c => new RetryingSqlServerRetryingExecutionStrategy(c));
+                sqlOptions.ExecutionStrategy(c => new RetryingExecutionStrategies(c));
             });
         });
         
-        builder.EnrichNpgsqlDbContext<GoldDbContext>(settings =>
+        builder.EnrichNpgsqlDbContext<MetalDbContext>(settings =>
         {
             // Disable Aspire default retries as we're using a custom execution strategy
             settings.DisableRetry = true;

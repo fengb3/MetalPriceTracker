@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DbMigrationService.Migrations
 {
-    [DbContext(typeof(GoldDbContext))]
+    [DbContext(typeof(MetalDbContext))]
     partial class GoldDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
