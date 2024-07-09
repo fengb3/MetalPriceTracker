@@ -46,7 +46,7 @@ var trigger = TriggerBuilder
     ;
 
 // wait 10 secondes before start
-await Task.Delay(10 * 1000);
+await Task.Delay(1 * 1000);
 
 await scheduler.ScheduleJob(job, trigger);
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Worker;
 
-public class MetalMetaDataWorkerClient(HttpClient httpClient)
+public class MetalMetaDataWorkerClient(HttpClient httpClient, ILogger<MetalMetaDataWorkerClient> logger)
 {
     /// <summary>
     /// 获取贵金属数据
@@ -15,7 +15,7 @@ public class MetalMetaDataWorkerClient(HttpClient httpClient)
     /// <returns></returns>
     public async Task<JiJinHaoMetalResponseDto?> FetchDataAsync()
     {
-        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?code={string.Join(",", Global.Codes)}");
+        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?codes={string.Join(",", Global.Codes)}");
 
         response.EnsureSuccessStatusCode();
 
@@ -24,9 +24,21 @@ public class MetalMetaDataWorkerClient(HttpClient httpClient)
         using var       reader             = new StreamReader(decompressedStream, Encoding.UTF8);
         var             content            = await reader.ReadToEndAsync();
 
-        content = content.Split('=')[1].Trim();
+        var json = "";
 
-        var result = JsonSerializer.Deserialize<JiJinHaoMetalResponseDto>(content, Options);
+        var parts = content.Split('=');
+        if (parts.Length > 1)
+        {
+            json = parts[1].Trim();
+        }
+        else
+        {
+            logger.LogError("cannot find = in JiJinHao response {response}", content);
+        }
+
+        var result = JsonSerializer.Deserialize<JiJinHaoMetalResponseDto>(json, Options);
+
+        logger.LogInformation("Fetched Metadata : {result}", result);
 
         return result;
     }

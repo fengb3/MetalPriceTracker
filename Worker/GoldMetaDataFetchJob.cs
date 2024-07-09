@@ -25,7 +25,7 @@ public class GoldMetaDataFetchJob(
 
             foreach (var metaData in result.MetalMatas.Values)
             {
-                logger.LogInformation($"Safe insert data to {metaData.Code} - {metaData.Time}");
+                logger.LogInformation("Safe insert data to {code} - {time}", metaData.Code, metaData.Time);
                 SafeInsert(metaData);
             }
 
