@@ -15,7 +15,7 @@ public class MetalMetaDataWorkerClient(HttpClient httpClient)
     /// <returns></returns>
     public async Task<JiJinHaoMetalResponseDto?> FetchDataAsync()
     {
-        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?code={string.Join(",", Global.Codes)}");
+        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?codes={string.Join(",", Global.Codes)}");
 
         response.EnsureSuccessStatusCode();
 
