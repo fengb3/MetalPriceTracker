@@ -30,7 +30,7 @@ builder
 
 // web
 builder
-   .AddProject<Projects.Web>("web-frontend")
+   .AddProject<Projects.Web2>("web-frontend")
    .WithExternalHttpEndpoints()
    .WithReference(api)
     ;

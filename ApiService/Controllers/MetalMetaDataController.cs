@@ -23,7 +23,7 @@ public class MetalMetaDataController : ControllerBase
     }
 
     [HttpGet("GetCodesAsync")]
-    public async Task ListCode()
+    public async Task GetCodesAsync()
     {
         async IAsyncEnumerable<string> EnumerateArrayAsync(string[] array)
         {
@@ -41,10 +41,10 @@ public class MetalMetaDataController : ControllerBase
     [HttpGet("GetAsync/{code}")]
     public async Task GetAsync(string code, [FromQuery] long startTime, [FromQuery] long endTime)
     {
-        var metalData = _dbContext.Set<MetalMetaData>(code)
+        var filteredMetalDataAsync = _dbContext.Set<MetalMetaData>(code)
                                   .Where(m => m.Time >= startTime && m.Time <= endTime)
                                   .AsAsyncEnumerable();
 
-        await Response.SendChunksAsync(metalData);
+        await Response.SendChunksAsync(filteredMetalDataAsync);
     }
 }

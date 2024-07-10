@@ -3,6 +3,8 @@ using Web2.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -11,6 +13,13 @@ builder.Services.AddMasaBlazor(options =>
     options.ConfigureIcons(IconSet.FontAwesome6);
 });
 builder.Services.AddSingleton<WeatherForecastService>();
+
+builder.Services.AddHttpApi<IMetalMetaApi>()
+    .ConfigureHttpClient(client =>
+    {
+        client.BaseAddress = new Uri("http+https://api-service/");
+    })
+    ;
 
 var app = builder.Build();
 
@@ -32,3 +41,4 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+

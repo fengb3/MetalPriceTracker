@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Masa.Blazor" Version="1.6.0" />
+    <PackageReference Include="WebApiClientCore" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\Lib.csproj" />
+    <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
