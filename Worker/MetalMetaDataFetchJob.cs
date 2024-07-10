@@ -70,7 +70,7 @@ public class MetalMetaDataFetchJob(
 
         var memoryCacheKey = $"{code}";
 
-        // ¼ì²é ²åÈë±íÖĞµÄÉÏÒ»Ìõ¼ÇÂ¼ (´æÔÚ cache ÖĞ)£¬ Èç¹ûºÍÕâ´Î»ñÈ¡µ½µÄÖØ¸´ Ôò²»²åÈë
+        // æ£€æŸ¥ æ’å…¥è¡¨ä¸­çš„ä¸Šä¸€æ¡è®°å½• (å­˜åœ¨ cache ä¸­)ï¼Œ å¦‚æœå’Œè¿™æ¬¡è·å–åˆ°çš„é‡å¤ åˆ™ä¸æ’å…¥
         if (memoryCache.TryGetValue(memoryCacheKey, out var cachedMetaData))
         {
             if (cachedMetaData is MetalMetaData metalMetaData)
@@ -82,7 +82,7 @@ public class MetalMetaDataFetchJob(
                 }
             }
         }
-        // Èç¹û cache ÖĞÃ»ÓĞÕâ¸ö±í²åÈëµÄÉÏÒ»Ìõ¼ÇÂ¼£¬ ÔòÖ±½Ó¼ì²é±íÀïÓĞÃ»ÓĞ
+        // å¦‚æœ cache ä¸­æ²¡æœ‰è¿™ä¸ªè¡¨æ’å…¥çš„ä¸Šä¸€æ¡è®°å½•ï¼Œ åˆ™ç›´æ¥æ£€æŸ¥è¡¨é‡Œæœ‰æ²¡æœ‰
         else
         {
             //var lastOne = dbContext.Set<MetalMetaData>(code!).FirstOrDefault(m => m.Time >= metaData.Time);
@@ -93,7 +93,7 @@ public class MetalMetaDataFetchJob(
             //    return;
             //}
 
-            // Ê¹ÓÃ AnyAsync ¼ì²éÊÇ·ñ´æÔÚÂú×ãÌõ¼şµÄ¼ÇÂ¼
+            // ä½¿ç”¨ AnyAsync æ£€æŸ¥æ˜¯å¦å­˜åœ¨æ»¡è¶³æ¡ä»¶çš„è®°å½•
             if (await dbContext.Set<MetalMetaData>(code!).AnyAsync(m => m.Time >= metaData.Time))
             {
                 return;
@@ -103,7 +103,7 @@ public class MetalMetaDataFetchJob(
         logger.LogInformation("Insert data to {code} - {time}", metaData.Code, DateTimeOffset.FromUnixTimeMilliseconds(metaData.Time));
         await dbContext.Set<MetalMetaData>(code!).AddAsync(metaData);
 
-        // ´æÈë cache£¬ÏÂ´Î²åÈëÊ± ¼ì²é
+        // å­˜å…¥ cacheï¼Œä¸‹æ¬¡æ’å…¥æ—¶ æ£€æŸ¥
         memoryCache.Set(memoryCacheKey, metaData);
     }
 }

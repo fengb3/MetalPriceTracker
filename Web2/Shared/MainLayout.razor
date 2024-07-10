@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
-@inject IMetalMetaApi MetalMetaApi
+@inject IMetalMetaApi       MetalMetaApi
+@inject ILogger<MainLayout> Logger
 @using Lib.EventStream
 
 <MApp>
@@ -11,7 +12,7 @@
     </MAppBar>
 
     <MNavigationDrawer App @bind-Value="_drawer">
-        <MList Nav Routable >
+        <MList Nav Routable>
             <MListItem Href="/" ActiveClass="primary--text">
                 <MListItemIcon>
                     <MIcon>fa-solid fa-house</MIcon>
@@ -38,13 +39,13 @@
             </MListItem>
         </MList>
         <MDivider></MDivider>
-        <MList Nav Dense>
+        <MList Nav>
             <MListItemGroup>
-                @foreach (var item in navItems)
+                @foreach (var item in _navItems)
                 {
-                    <MListItem Href=@item.Code>
+                    <MListItem Href=@item.Href>
                         <MListItemIcon>
-                            <MIcon>fa-solid fa-list</MIcon>
+                            <MIcon>@item.Icon</MIcon>
                         </MListItemIcon>
 
                         <MListItemContent>
@@ -69,11 +70,15 @@
 
     private bool? _drawer;
 
-    private List<Item> navItems = new();
+    private List<NavItems> _navItems = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        navItems = new List<Item>();
+        Logger.LogDebug("OnAfterRenderAsync - {1}", firstRender);
+        
+        if (!firstRender) return;
+
+        _navItems = [];
 
         // return base.OnAfterRenderAsync(firstRender);
         var httpResponseMessage = await MetalMetaApi.GetCodesAsync();
@@ -82,9 +87,11 @@
 
         await foreach (var code in asyncResult)
         {
-            navItems.Add(new Item(code, code + "-name"));
+            _navItems.Add(new NavItems(code, $"/MetalDetail/code={code}"));
+            StateHasChanged();
         }
     }
-    
-    record Item(string Code, string Name);
+
+    record NavItems(string Code, string Href, string Icon = "fa-solid fa-poo");
+
 }

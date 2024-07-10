@@ -1,0 +1,81 @@
+@page "/MetalDetail/code={Code}"
+@using Lib
+@using Lib.EventStream
+@using Lib.Helper
+
+@inject IMetalMetaApi            MetalMetaApi
+@inject ILogger<PageMetalDetail> Logger
+
+
+<h1>Metal Detail @Code</h1>
+<div class="d-flex align-center justify-center">
+    <MECharts Option="_option" Width="@("100%")" Height="500">
+    </MECharts>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Code { get; set; }
+
+
+    private object _option = new
+    {
+        Title = new
+        {
+            Left = "center",
+            Text = "Getting started"
+        },
+        Tooltip = new { },
+        XAxis = new
+        {
+            Data = times.Select(x => x.ToString("yyyy-MM-dd HH:mm:ss")).ToArray()
+        },
+        YAxis = new
+        {
+            type = "value",
+            Min  = prices.Count == 0 ? 0 : prices.Min(),
+            Max  = prices.Count == 0 ? 0 : prices.Max()
+        },
+        Series = new[]
+        {
+            new
+            {
+                Name = "gg",
+                Type = "line",
+                Data = prices
+            }
+        }
+    };
+
+    private static List<double>         prices = new();
+    private static List<DateTimeOffset> times  = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        prices.Clear();
+        times.Clear();
+        Logger.LogInformation("getting metal detail for code: {Code}", Code);
+
+        var startTimeStamp = DateTimeOffset.Now.AddDays(-5).ToUnixTimeMilliseconds();
+        var endTimeStamp   = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+        var httpResponseMessage = await MetalMetaApi.GetAsync(Code, startTimeStamp, endTimeStamp);
+
+        var asyncResults = httpResponseMessage.ReceiveChunkAsync<MetalMetaData>(default);
+
+        await foreach (var result in asyncResults)
+        {
+            // Logger.LogInformation(result.ToJsonString());
+
+            prices.Add(result.Q63);
+            times.Add(DateTimeOffset.FromUnixTimeMilliseconds(result.Time));
+
+            // StateHasChanged();
+        }
+
+        // StateHasChanged();
+    }
+
+}
