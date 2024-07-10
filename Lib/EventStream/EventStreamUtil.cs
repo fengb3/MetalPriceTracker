@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 
@@ -14,9 +15,16 @@ public static class EventStreamUtil
     {
         response.ContentType = CONTENT_TYPE;
 
+        var sb = new StringBuilder();
+        
         await foreach(var responseChunkBody in requestData)
         {
-            await response.WriteAsync(DATA_PREFIX + JsonSerializer.Serialize(responseChunkBody) + DATA_SUFFIX);
+            sb.Clear()
+                .Append(DATA_PREFIX)
+                .Append(JsonSerializer.Serialize(responseChunkBody))
+                .Append(DATA_SUFFIX);
+
+            await response.WriteAsync(sb.ToString());
             await response.Body.FlushAsync();
         }
     }

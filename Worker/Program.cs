@@ -6,6 +6,8 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddProblemDetails();
 
 builder.Services.AddHttpClient<MetalMetaDataWorkerClient>(client =>
@@ -31,7 +33,7 @@ var scheduler = await factory.GetScheduler();
 var jobKey = new JobKey("gg");
 
 var job = JobBuilder
-         .Create<GoldMetaDataFetchJob>()
+         .Create<MetalMetaDataFetchJob>()
          .WithIdentity(jobKey)
          .WithDescription("this is Fucking job")
          .Build()
@@ -41,11 +43,13 @@ var trigger = TriggerBuilder
              .Create()
              .WithIdentity("GoldMetaDataFetchJobTrigger")
              .ForJob(jobKey)
-             .WithSchedule(SimpleScheduleBuilder.RepeatMinutelyForever())
+             .WithSchedule(SimpleScheduleBuilder.Create()
+                 .WithIntervalInSeconds(10)
+                 .RepeatForever())
              .Build()
     ;
 
-// wait 10 secondes before start
+// wait 10 seconds before start
 await Task.Delay(1 * 1000);
 
 await scheduler.ScheduleJob(job, trigger);
