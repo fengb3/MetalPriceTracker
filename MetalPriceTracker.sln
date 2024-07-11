@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web2", "Web2\Web2.csproj", "{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiService", "WebApiService", "{3F9E8777-7D43-4A42-B1A3-2AAEB2515CBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiService.Contract", "ApiService.Contract\ApiService.Contract.csproj", "{5CF65F84-E76E-4797-AA88-785D6E95EF2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,11 +73,19 @@ Global
 		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58BC1465-1F2E-416F-A1EB-9D8FCB41A0BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF65F84-E76E-4797-AA88-785D6E95EF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF65F84-E76E-4797-AA88-785D6E95EF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF65F84-E76E-4797-AA88-785D6E95EF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF65F84-E76E-4797-AA88-785D6E95EF2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8BAB3EE6-F1AB-46BA-BCC3-926E40E9BF0C}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBEB8F75-803A-41F4-B87E-DE5AEFC6B0C1} = {3F9E8777-7D43-4A42-B1A3-2AAEB2515CBA}
+		{5CF65F84-E76E-4797-AA88-785D6E95EF2D} = {3F9E8777-7D43-4A42-B1A3-2AAEB2515CBA}
 	EndGlobalSection
 EndGlobal

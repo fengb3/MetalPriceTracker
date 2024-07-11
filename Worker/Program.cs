@@ -43,14 +43,15 @@ var trigger = TriggerBuilder
              .Create()
              .WithIdentity("GoldMetaDataFetchJobTrigger")
              .ForJob(jobKey)
-             .WithSchedule(SimpleScheduleBuilder.Create()
-                 .WithIntervalInSeconds(10)
-                 .RepeatForever())
+              // .WithSchedule(SimpleScheduleBuilder.Create()
+              //     .WithIntervalInSeconds(10)
+              //     .RepeatForever())
+             .WithSchedule(SimpleScheduleBuilder.RepeatSecondlyForever(30))
              .Build()
     ;
 
-// wait 10 seconds before start
-await Task.Delay(1 * 1000);
+// wait 2 seconds before start
+await Task.Delay(2 * 1000);
 
 await scheduler.ScheduleJob(job, trigger);
 
