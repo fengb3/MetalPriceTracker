@@ -47,7 +47,7 @@ public class MetalDbContextTests
 		// Assert
 		using (var context = new MetalDbContext(options))
 		{
-			Assert.Equal(1, context.Set<MetalMetaData>("JO_9753").Count());
+			Assert.Equal(1, context.Set<MetalMetadata>("JO_9753").Count());
 		}
 	}
 
@@ -70,7 +70,7 @@ public class MetalDbContextTests
 
 		var result = await client.FetchDataAsync();
 
-		var tasks = result?.MetalMatas
+		var tasks = result?.MetalMetas
 				.Values
 				.Select(_dbContext.AddAsync)
 			;

@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 Environment.SetEnvironmentVariable("CONNECTION_STRING_SECTION", "db1");
@@ -17,10 +19,11 @@ var api =
     ;
 
 // migration
-builder
-   .AddProject<Projects.DbMigrationService>("migration")
-   .WithReference(db1)
-    ;
+ var _ =
+        builder
+        .AddProject<Projects.DbMigrationService>("migration")
+        .WithReference(db1)
+            ;
 
 // worker
 builder
@@ -35,4 +38,6 @@ builder
    .WithReference(api)
     ;
 
-builder.Build().Run();
+builder.Build()
+       
+       .Run();

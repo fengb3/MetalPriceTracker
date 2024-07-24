@@ -20,6 +20,7 @@ builder.Services.AddHttpClient<MetalMetaDataWorkerClient>(client =>
 });
 
 builder.AddMetalDb();
+
 builder.Services.AddQuartz();
 builder.Services.AddQuartzServer(options => { options.WaitForJobsToComplete = true; });
 

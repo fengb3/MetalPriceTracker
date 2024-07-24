@@ -12,8 +12,8 @@ public static class Extensions
     public static void AddMetalDb(this IHostApplicationBuilder builder)
     {
         var connStringSection = Environment.GetEnvironmentVariable("CONNECTION_STRING_SECTION");
-
-        Console.WriteLine(connStringSection ?? "Connection string Section is not defined");
+        
+        // Console.WriteLine(connStringSection ?? "Connection string Section is not defined");
         
         Ensure.NotNullOrEmpty(connStringSection, nameof(connStringSection));
         

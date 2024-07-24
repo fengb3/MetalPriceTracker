@@ -13,16 +13,16 @@ public class MetalMetaDataWorkerClient(HttpClient httpClient, ILogger<MetalMetaD
     /// 获取贵金属数据
     /// </summary>
     /// <returns></returns>
-    public async Task<JiJinHaoMetalResponseDto?> FetchDataAsync()
+    public async Task<JiJinHaoMetalResponseDto?> FetchDataAsync(CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?codes={string.Join(",", Global.Codes)}");
+        var response = await httpClient.GetAsync($"/quoteCenter/realTime.htm?codes={string.Join(",", Global.Codes)}", cancellationToken);
 
         response.EnsureSuccessStatusCode();
-
-        await using var contentStream      = await response.Content.ReadAsStreamAsync();
+        
+        await using var contentStream      = await response.Content.ReadAsStreamAsync(cancellationToken);
         await using var decompressedStream = GetDecompressedStream(contentStream, response.Content.Headers);
         using var       reader             = new StreamReader(decompressedStream, Encoding.UTF8);
-        var             content            = await reader.ReadToEndAsync();
+        var             content            = await reader.ReadToEndAsync(cancellationToken);
 
         var json = "";
 

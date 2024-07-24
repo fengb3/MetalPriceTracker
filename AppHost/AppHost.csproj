@@ -12,6 +12,7 @@
     <ItemGroup>
         <ProjectReference Include="..\ApiService\ApiService.csproj" />
         <ProjectReference Include="..\DbMigrationService\DbMigrationService.csproj" />
+        <ProjectReference Include="..\Lib\Lib.csproj" />
         <ProjectReference Include="..\Web2\Web2.csproj" />
         <ProjectReference Include="..\Web\Web.csproj" />
         <ProjectReference Include="..\Worker\Worker.csproj" />

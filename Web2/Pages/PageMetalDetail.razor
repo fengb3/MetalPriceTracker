@@ -63,7 +63,7 @@
 
         var httpResponseMessage = await MetalMetaApi.GetAsync(Code, startTimeStamp, endTimeStamp);
 
-        var asyncResults = httpResponseMessage.ReceiveChunkAsync<MetalMetaData>(default);
+        var asyncResults = httpResponseMessage.ReceiveChunkAsync<MetalMetadata>(default);
 
         await foreach (var result in asyncResults)
         {

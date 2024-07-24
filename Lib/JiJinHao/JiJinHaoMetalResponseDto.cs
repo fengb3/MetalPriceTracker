@@ -8,5 +8,5 @@ public record JiJinHaoMetalResponseDto
     public string[]? ErrorCode { get; set; }
 
     [JsonIgnore]
-    public Dictionary<string, MetalMetaData> MetalMatas { get; init; } = [];
+    public Dictionary<string, MetalMetadata> MetalMetas { get; init; } = [];
 }

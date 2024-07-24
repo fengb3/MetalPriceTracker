@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Lib;
 
-public record MetalMetaData
+public record MetalMetadata
 {
     /// <summary>
     /// 产品代码

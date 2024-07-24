@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
@@ -36,26 +37,30 @@ public static class Extensions
 
     public static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder)
     {
-        builder.Logging.AddOpenTelemetry(logging =>
-        {
-            logging.IncludeFormattedMessage = true;
-            logging.IncludeScopes           = true;
-        });
+        builder
+           .UseMyCustomizedLog()
+           .AddOpenTelemetry(logging =>
+            {
+                logging.IncludeFormattedMessage = true;
+                logging.IncludeScopes           = true;
+            });
 
-        builder.Services.AddOpenTelemetry()
-               .WithMetrics(metrics =>
-                {
-                    metrics.AddAspNetCoreInstrumentation()
-                           .AddHttpClientInstrumentation()
-                           .AddRuntimeInstrumentation();
-                })
-               .WithTracing(tracing =>
-                {
-                    tracing.AddAspNetCoreInstrumentation()
-                            // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
-                            //.AddGrpcClientInstrumentation()
-                           .AddHttpClientInstrumentation();
-                });
+        builder
+           .Services.AddOpenTelemetry()
+           .WithMetrics(metrics =>
+            {
+                metrics.AddAspNetCoreInstrumentation()
+                       .AddHttpClientInstrumentation()
+                       .AddRuntimeInstrumentation();
+            })
+           .WithTracing(tracing =>
+            {
+                tracing.AddAspNetCoreInstrumentation()
+                        // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
+                        //.AddGrpcClientInstrumentation()
+                       .AddHttpClientInstrumentation();
+                // tracing.AddProcessor();
+            });
 
         builder.AddOpenTelemetryExporters();
 

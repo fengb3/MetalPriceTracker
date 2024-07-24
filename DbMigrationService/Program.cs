@@ -7,7 +7,8 @@ builder.Services.AddHostedService<ApiDbInitializer>();
 
 builder.AddServiceDefaults();
 
-builder.Services.AddOpenTelemetry()
+builder.Services
+       .AddOpenTelemetry()
        .WithTracing(tracing => tracing.AddSource(ApiDbInitializer.ActivitySourceName));
 
 // builder.Services.AddDbContextPool<MetalDbContext>(options =>

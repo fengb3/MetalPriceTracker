@@ -7,10 +7,10 @@ namespace Web2.Data
     // [HttpHost("http+https://api-service/")]
     public interface IMetalMetaApi
     {
-        [HttpGet("/api/MetalMetaData/GetCodesAsync")]
+        [HttpGet("/api/MetalMetadata/GetCodesAsync")]
         Task<HttpResponseMessage> GetCodesAsync();
 
-        [HttpGet("/api/MetalMetaData/GetAsync/{code}")]
+        [HttpGet("/api/MetalMetadata/GetAsync/{code}")]
         Task<HttpResponseMessage> GetAsync(string code, [FromQuery] long startTime, [FromQuery] long endTime);
     }
 }

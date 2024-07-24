@@ -9,7 +9,7 @@ public class JiJinHaoMetalJsonConverter : JsonConverter<JiJinHaoMetalResponseDto
     {
         var response = new JiJinHaoMetalResponseDto
         {
-            MetalMatas = new Dictionary<string, MetalMetaData>()
+            MetalMetas = new Dictionary<string, MetalMetadata>()
         };
 
         while (reader.Read())
@@ -36,8 +36,8 @@ public class JiJinHaoMetalJsonConverter : JsonConverter<JiJinHaoMetalResponseDto
                     {
                         if (propertyName.StartsWith("JO_"))
                         {
-                            var goldData = JsonSerializer.Deserialize<MetalMetaData>(ref reader, options);
-                            response.MetalMatas.Add(propertyName, goldData);
+                            var goldData = JsonSerializer.Deserialize<MetalMetadata>(ref reader, options);
+                            response.MetalMetas.Add(propertyName, goldData);
                         }
 
                         break;
@@ -57,7 +57,7 @@ public class JiJinHaoMetalJsonConverter : JsonConverter<JiJinHaoMetalResponseDto
         writer.WritePropertyName("errorCode");
         JsonSerializer.Serialize(writer, value.ErrorCode, options);
 
-        foreach (var kvp in value.MetalMatas)
+        foreach (var kvp in value.MetalMetas)
         {
             writer.WritePropertyName(kvp.Key);
             JsonSerializer.Serialize(writer, kvp.Value, options);

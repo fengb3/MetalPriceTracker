@@ -14,5 +14,5 @@ public class MetalRequest
 
 public class MetalResponseBody
 {
-    public required IEnumerable<MetalMetaData> MetalMetas { get; set; }
+    public required IEnumerable<MetalMetadata> MetalMetas { get; set; }
 }

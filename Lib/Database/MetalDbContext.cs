@@ -14,19 +14,19 @@ public class MetalDbContext : DbContext
     {
         foreach (var code in Global.Codes)
         {
-            modelBuilder.SharedTypeEntity<MetalMetaData>(code);
+            modelBuilder.SharedTypeEntity<MetalMetadata>(code);
         }
     }
 
-    public async Task AddAsync(MetalMetaData metaData)
+    public async Task AddAsync(MetalMetadata metadata)
     {
-        var code = metaData.Code;
-        await Set<MetalMetaData>(code).AddAsync(metaData);
+        var code = metadata.Code;
+        await Set<MetalMetadata>(code).AddAsync(metadata);
     }
 
-    public void Add(MetalMetaData metaData)
+    public void Add(MetalMetadata metadata)
     {
-        AddAsync(metaData).GetAwaiter().GetResult();
+        AddAsync(metadata).GetAwaiter().GetResult();
     }
 
     public MetalDbContext(DbContextOptions<MetalDbContext> options) : base(options)
